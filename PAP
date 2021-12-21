@@ -1,0 +1,95 @@
+import pyttsx3
+import speech_recognition as sr
+import subprocess as sp
+import pywhatkit
+import datetime
+import wikipedia
+import pyjokes
+import sys
+
+Audio = sr.Recognizer()
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[1].id)
+
+#Inicio a libraria para fazer o script falar
+def talk(text):
+    engine.say(text)
+    engine.runAndWait()
+
+def Commands():
+    try:
+        with sr.Microphone() as source:
+                print("Say something: ")
+                voice = Audio.listen(source)
+                Order = Audio.recognize_google(voice)
+                Order = Order.lower() #Passa todo o que for dito para letras minusculas
+        
+                if 'charlie' in Order:
+                    Order = Order.replace('charlie', '') 
+                    print(Order)
+                    print("You said: " + Order)
+    except: 
+        pass
+    return Order
+
+def charlie_commands():
+
+    order=Commands()
+    print(order)
+
+    #Caso o utilizador queira abrir algum aplicativo o programa vai reconhecer a palavra chave
+    #É capaz de abrir: Calculadora, Notepad, write e paint
+    if "open" in order: 
+        if "calculator" in order:
+            sp.Popen('C:\\Windows\\System32\\calc.exe')
+        if "notepad" in order:
+            sp.Popen('C:\\Windows\\System32\\notepad.exe')
+        if "wordpad" in order:
+            sp.Popen('C:\\Windows\\System32\\write.exe')
+        if "paint" in order:
+            sp.Popen('C:\\Windows\\system32\mspaint.exe')
+    
+    #Algumas "dad jokes" caso o utilizador esteja numa para se rir
+    elif "tell me a joke" in order:
+        print(pyjokes.get_joke())
+
+    #Diz a horas
+    elif "tell me the time" in order:
+        time = datetime.datetime.now().strftime('%H:%M')
+        print("The current time is "+time)
+
+
+    #Capaz de pesquisar acerca de alguma figura publica
+    elif 'who is' in order:
+        person = order.replace('who is', '')
+        info = wikipedia.summary(person, 1)
+        print("According to wikipedia, "+info)
+
+    #Capaz de pesquisar algum topico
+    elif 'what is' in order:
+        subject = order.replace('what is', '')
+        info = wikipedia.summary(subject, 1)
+        print("According to wikipedia, "+info)
+    
+    #Vai ao youtube e abre a musica pedida pelo o utilizador
+    elif 'play' in order:
+        song = order.replace('play', '')
+        print('playing ' + song)
+        pywhatkit.playonyt(song)
+    
+    #A palavra chave para fechar o script é close
+    elif "shutdown" in order:
+            print("Goodbye")
+            sys.exit()
+
+    else: print('Please repeat')
+
+        
+while True:
+    charlie_commands()
+
+
+#Akinator se possivel
+#Fazer o sistema capaz de pesquisar algo no google
+#Fazer o sistema capaz de tocar musica no youtube ou spotify
