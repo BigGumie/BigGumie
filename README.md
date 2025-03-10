@@ -1,8 +1,5 @@
-- 👋 Hi, I’m @BigGumie
-- 👀 I’m interested in developing HTML/Javascript/Python & C
-- 🌱 I’m currently learning Javascript 
-- 💞️ I’m looking to collaborate on nothing rightnow.
-- 📫 How to reach me @Gumie03 on Twitter
+- Currently using Javascript and working on databases
+- You can reach me on discord -> gumie.exe 
 
 <!---
 BigGumie/BigGumie is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
